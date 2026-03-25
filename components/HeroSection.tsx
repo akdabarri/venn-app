@@ -12,7 +12,7 @@ export function HeroSection() {
       >
         <Sparkles size={12} className="text-[#f36f21]" />
         <span className="text-xs font-medium text-[#f36f21] tracking-wide">
-          AI-Powered · Scopus Indexed · 2024 Database
+          AI-Powered · Scopus Indexed · Latest Database
         </span>
       </div>
 

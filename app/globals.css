@@ -1,26 +1,185 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* === Color Tokens === */
+  --color-bg: #ffffff;
+  --color-heading: #171717;
+  --color-body: #333333;
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-border-light: #f3f4f6;
+
+  /* Scopus Orange System */
+  --color-accent: #f36f21;
+  --color-accent-hover: #e05e12;
+  --color-accent-soft: #fff7ef;
+  --color-accent-mid: #fde8d3;
+
+  /* Quartile Badge Colors */
+  --color-q1: #f36f21;
+  --color-q2: #3b82f6;
+  --color-q3: #8b5cf6;
+  --color-q4: #6b7280;
+  --color-qna: #9ca3af;
+
+  /* Shadows - Disederhanakan untuk performa */
+  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ============================================
+   GLOBAL RESETS
+   ============================================ */
+
+.font-display {
+  font-family: var(--font-serif);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-heading);
+  font-family: var(--font-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   COMPONENT UTILITIES
+   ============================================ */
+
+@layer components {
+  .card-base {
+    @apply bg-white rounded-2xl border border-[#f0f0f0];
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-hover {
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    will-change: transform;
+  }
+
+  .card-hover:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-150;
+    background: var(--color-accent);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .input-base {
+    @apply w-full px-4 py-3 rounded-xl border border-[#e5e7eb] bg-white text-sm transition-all;
+    @apply focus:outline-none focus:border-[#f36f21] focus:ring-1 focus:ring-[#f36f21];
+  }
+}
+
+/* ============================================
+   LIGHTWEIGHT ANIMATIONS
+   ============================================ */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(4px); /* Jarak sangat kecil agar tidak berat */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.3s ease-out forwards;
+  will-change: opacity, transform; /* Memicu GPU acceleration */
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e9eaec 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+/* Delay disederhanakan */
+.delay-100 { animation-delay: 50ms; }
+.delay-200 { animation-delay: 100ms; }
+
+/* ============================================
+   OVERLAYS - OPTIMIZED FOR CLERK & POPUPS
+   ============================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* Solid transparan, TANPA BLUR */
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  /* Dihapus: backdrop-filter karena ini pembunuh FPS utama */
+}
+
+/* Clerk Overrides */
+.cl-userButtonBox {
+  display: flex;
+  align-items: center;
+}
+
+/* Scrollbar Ringan */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 10px;
+}
+
+/* ============================================
+   CLERK ANTI-LAG OVERRIDES (NUCLEAR OPTION)
+   ============================================ */
+
+/* 1. Matikan efek blur kaca yang membunuh FPS GPU */
+.cl-modalBackdrop {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  animation: none !important;
+}
+
+/* 2. Matikan animasi masuknya modal (langsung muncul) */
+.cl-modalContent {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* 3. Matikan bayangan (shadow) berlebih pada kartu Sign In */
+.cl-card, .cl-cardBox {
+  animation: none !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important; /* Ganti dengan shadow ringan */
+  transition: none !important;
+}
+
+/* 4. Matikan animasi muter-muter (spinner) saat loading form jika perlu */
+.cl-spinner {
+  animation-duration: 2s !important; /* Perlambat agar tidak berat */
 }

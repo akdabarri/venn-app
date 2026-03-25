@@ -14,15 +14,12 @@ interface ResultsSectionProps {
 export function ResultsSection({ isLoading, results }: ResultsSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  // Scroll into view when results appear
+  // Auto-scroll saat hasil muncul agar user tidak bingung
   useEffect(() => {
-    if (!isLoading && results !== null) {
+    if (!isLoading && results !== null && results.length > 0) {
       setTimeout(() => {
-        sectionRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }, 100);
+        sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 150);
     }
   }, [isLoading, results]);
 
@@ -30,18 +27,20 @@ export function ResultsSection({ isLoading, results }: ResultsSectionProps) {
     <div ref={sectionRef} className="mt-8 scroll-mt-24">
       {/* Section Header */}
       <div className="flex items-center gap-2 mb-5">
-        <Sparkles size={15} className="text-[#f36f21]" />
-        <h2 className="text-sm font-semibold text-[#333333] tracking-wide uppercase">
-          {isLoading ? "Analyzing your abstract…" : "Top Journal Matches"}
+        <div className="p-1.5 bg-[#fff7ef] rounded-lg">
+          <Sparkles size={16} className="text-[#f36f21]" />
+        </div>
+        <h2 className="text-sm font-bold text-[#171717] tracking-wider uppercase">
+          {isLoading ? "Analyzing Research Scope…" : "Top Journal Matches"}
         </h2>
         {!isLoading && results && (
-          <span className="ml-auto text-xs text-[#9ca3af]">
-            {results.length} result{results.length !== 1 ? "s" : ""}
+          <span className="ml-auto text-[11px] font-bold px-2 py-0.5 bg-gray-100 text-gray-500 rounded-full">
+            {results.length} Journals Found
           </span>
         )}
       </div>
 
-      {/* Skeleton Loading State */}
+      {/* Loading State */}
       {isLoading && (
         <div className="space-y-4">
           {[0, 1, 2].map((i) => (
@@ -50,7 +49,7 @@ export function ResultsSection({ isLoading, results }: ResultsSectionProps) {
         </div>
       )}
 
-      {/* Results */}
+      {/* Results List */}
       {!isLoading && results && results.length > 0 && (
         <div className="space-y-4">
           {results.map((result, index) => (
@@ -66,16 +65,16 @@ export function ResultsSection({ isLoading, results }: ResultsSectionProps) {
 
       {/* Empty State */}
       {!isLoading && results !== null && results.length === 0 && (
-        <div className="card-base p-10 text-center">
-          <div className="w-12 h-12 rounded-2xl bg-[#f9fafb] flex items-center justify-center mx-auto mb-4">
-            <AlertCircle size={22} className="text-[#9ca3af]" />
+        <div className="card-base p-12 text-center border-dashed border-2">
+          <div className="w-14 h-14 rounded-2xl bg-[#f9fafb] flex items-center justify-center mx-auto mb-4">
+            <AlertCircle size={28} className="text-[#9ca3af]" />
           </div>
-          <h3 className="text-base font-semibold text-[#333333] mb-2">
-            No matches found
+          <h3 className="text-lg font-bold text-[#333333] mb-2">
+            No optimal matches found
           </h3>
-          <p className="text-sm text-[#9ca3af] max-w-xs mx-auto">
-            Try different keywords in your abstract, or uncheck the Free APC
-            filter to expand your search.
+          <p className="text-sm text-[#9ca3af] max-w-sm mx-auto leading-relaxed">
+            AI couldn't find a perfect match. Try refining your abstract or 
+            disabling the <span className="text-[#f36f21] font-medium">Free APC filter</span> to see more options.
           </p>
         </div>
       )}

@@ -9,8 +9,18 @@
 
 **Venn** is an intelligent, full-stack web application designed to accelerate academic research. By leveraging the power of Google's Gemini AI, Venn analyzes your research abstract or keywords and instantly recommends the most suitable Scopus-indexed journals for your publication, complete with deep AI reasoning.
 
-🔗 **Live Demo:** [https://venn-app.vercel.app](https://venn-app.vercel.app)
+🔗 **Live Demo:** [https://venn-app-barres-projects.vercel.app/](https://venn.app)
 
+---
+## 🚀 Latest Update: v2.0 (The Intelligence Update)
+*March 2026*
+
+In this major update, **Venn** has been upgraded with a more robust architecture for academic research:
+
+- **🧠 Intelligence Level Switcher:** Toggle between **Fast Mode** (Gemini Flash/Llama 8B) and **Smart Mode** (Llama-3-70B).
+- **🛡️ Robust Parsing Engine:** Integrated **Self-Healing Regex Recovery** to handle LLM formatting errors.
+- **📊 Direct Research Access:** Smart-link integration with **SCImago (SJR)**, **Google Scholar**, and Official Websites.
+- **🔐 Persistence Layer:** Full **Supabase** & **Clerk** integration for saving journal shortlists.
 ---
 
 ## ✨ Key Features

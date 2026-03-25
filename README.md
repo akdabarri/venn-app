@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 🎯 Venn - Find Your Journal!
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![Clerk](https://img.shields.io/badge/Clerk_Auth-6C47FF?style=for-the-badge&logo=clerk&logoColor=white)
+![Gemini AI](https://img.shields.io/badge/Gemini_2.5_Flash-8E75B2?style=for-the-badge&logo=googlebard&logoColor=white)
+
+**Venn** is an intelligent, full-stack web application designed to accelerate academic research. By leveraging the power of Google's Gemini AI, Venn analyzes your research abstract or keywords and instantly recommends the most suitable Scopus-indexed journals for your publication, complete with deep AI reasoning.
+
+🔗 **Live Demo:** [https://venn-app.vercel.app](https://venn-app.vercel.app)
+
+---
+
+## ✨ Key Features
+
+* 🧠 **Smart AI Matching:** Uses `Gemini 2.5 Flash` to deeply analyze research abstracts and find the perfect semantic match within a vast database of Scopus journals.
+* 📊 **Comprehensive Metrics:** Displays critical journal metrics including SJR Quartiles (Q1-Q4), H-index, APC status (Free/Paid), and Country of origin.
+* 🔐 **Secure Authentication:** Seamless and secure user login flow powered by **Clerk**.
+* 📚 **Personalized History:** Users can bookmark their favorite journal recommendations and AI reasoning. Data is persistently stored in a real-time **Supabase (PostgreSQL)** database.
+* ⚡ **Modern Architecture:** Built with the latest **Next.js 15 (App Router)** for lightning-fast server-side rendering and highly responsive UI with **Tailwind CSS**.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend:** Next.js 15, React 19, Tailwind CSS, Lucide Icons.
+* **Backend:** Next.js API Routes (Serverless Functions).
+* **Database:** Supabase (PostgreSQL) with integrated Row Level Security (RLS).
+* **Authentication:** Clerk.
+* **AI Provider:** Google Gemini API (`gemini-2.5-flash`).
+* **Deployment:** Vercel.
+
+---
+
+## 🚀 How to Run Locally
+
+Want to test this project on your local machine? Follow these steps:
+
+**1. Clone the repository**
+```bash
+git clone [https://github.com/akdabarri/venn-app.git](https://github.com/akdabarri/venn-app.git)
+cd venn-app
+````
+
+**2. Install dependencies**
+
+```bash
+npm install --legacy-peer-deps
+```
+
+**3. Set up Environment Variables**
+Create a `.env.local` file in the root directory and add your API keys:
+
+```env
+# Clerk Auth
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+
+# Supabase Database
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# Gemini AI
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+**4. Start the development server**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-----
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 💡 About The Project
 
-## Learn More
+This project was developed as a robust exploration into **AI in Education (AI-in-Ed)**, bridging the gap between advanced Large Language Models and practical academic workflows to support researchers and students in discovering impactful publication venues.
 
-To learn more about Next.js, take a look at the following resources:
+*Developed by **Akda Barri**.*
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

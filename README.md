@@ -9,7 +9,7 @@
 
 **Venn** is an intelligent, full-stack web application designed to accelerate academic research. By leveraging the power of Google's Gemini AI, Venn analyzes your research abstract or keywords and instantly recommends the most suitable Scopus-indexed journals for your publication, complete with deep AI reasoning.
 
-🔗 **Live Demo:** [https://venn-app.vercel.app](https://venn-app.vercel.app)](https://venn-app-barres-projects.vercel.app/)
+🔗 **Live Demo:** [https://venn.app](https://venn-app-barres-projects.vercel.app/)]
 
 ---
 
